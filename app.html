@@ -1070,8 +1070,15 @@ function renderizarSalvos(){
 
 // ---- PWA: registra o service worker para funcionamento offline ----
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch(() => {});
+  window.addEventListener("load", async () => {
+    try {
+      const registro = await navigator.serviceWorker.register("sw.js?v=2");
+
+      // Verifica se existe uma nova versão do Service Worker
+      registro.update();
+    } catch (erro) {
+      console.warn("Service Worker não pôde ser registrado:", erro);
+    }
   });
 }
 </script>
