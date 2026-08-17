@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Coralista — Pronúncia Musical</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff6f61">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="O Coralista">
+<style>
+  :root{
+    --azul: #cfe8fb;
+    --azul-escuro: #7fb8e0;
+    --verde: #d3f3d9;
+    --verde-escuro: #7ec98d;
+    --amarelo: #fdf1c2;
+    --amarelo-escuro: #e8c96b;
+    --rosa: #fbdde3;
+    --rosa-escuro: #e79aab;
+    --lilas: #e4dbf7;
+    --lilas-escuro: #b6a2e0;
+    --texto: #2b2b2b;
+    --cinza-claro: #f4f4f4;
+    --borda: #d9d9d9;
+    --destaque: #ff6f61;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #eef1f4;
+    color: var(--texto);
+    display:flex;
+    justify-content:center;
+    padding: 24px 12px 60px;
+  }
+
+  .phone{
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    overflow:hidden;
+    border: 1px solid #e2e2e2;
+  }
+
+  header{
+    text-align:center;
+    padding: 22px 16px 16px;
+    border-bottom: 1px solid #eee;
+  }
+  header h1{
+    margin:0;
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: #111;
+    font-weight: 800;
+  }
+  header h2{
+    margin: 2px 0 0;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #d1352b;
+    font-weight: 700;
+  }
+
+  main{ padding: 18px 16px 8px; }
+
+  .campo-texto{
+    width:100%;
+    min-height: 90px;
+    resize: vertical;
+    border: 1px solid var(--borda);
+    background: var(--cinza-claro);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--texto);
+  }
+  .campo-texto:focus{ outline: 2px solid var(--azul-escuro); }
+
+  .linha-botoes{
+    display:flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  button{
+    font-family: inherit;
+    cursor:pointer;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    padding: 12px 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--texto);
+    transition: transform .08s ease, filter .15s ease;
+  }
+  button:active{ transform: scale(0.97); }
+  button:focus-visible{ outline: 3px solid #333; outline-offset:2px; }
+  button:hover{ filter: brightness(0.96); }
+  button:disabled{ opacity:.5; cursor:not-allowed; }
+
+  .btn-flex{ flex:1; }
+
+  .btn-azul{ background: var(--azul); }
+  .btn-verde{ background: var(--verde); }
+  .btn-amarelo{ background: var(--amarelo); }
+  .btn-rosa{ background: var(--rosa); }
+  .btn-lilas{ background: var(--lilas); }
+
+  select.idioma-select{
+    display:none;
+  }
+
+  .idioma-atual{
+    margin-top: 8px;
+    font-size: 12.5px;
+    color:#555;
+    text-align:center;
+  }
+  .idioma-atual b{ color:#222; }
+
+  /* Menu suspenso de idiomas */
+  .menu-idioma{
+    position: relative;
+  }
+  .dropdown{
+    display:none;
+    position:absolute;
+    top: 105%;
+    left:0;
+    right:0;
+    background:#fff;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    z-index: 20;
+    overflow:hidden;
+  }
+  .dropdown.aberto{ display:block; }
+  .dropdown button{
+    width:100%;
+    text-align:left;
+    background:#fff;
+    border:none;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius:0;
+    padding: 10px 14px;
+    font-weight: 500;
+  }
+  .dropdown button:last-child{ border-bottom:none; }
+  .dropdown button.selecionado{ background: var(--azul); font-weight:700; }
+
+  .toggle-extra{
+    margin-top: 10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size: 12.5px;
+    color:#444;
+  }
+  .toggle-extra input{ width:15px; height:15px; }
+
+  .aviso{
+    margin-top: 10px;
+    font-size: 11.5px;
+    color:#888;
+    line-height:1.4;
+  }
+
+  .versos{
+    margin-top: 18px;
+    display:flex;
+    flex-direction:column;
+    gap: 16px;
+  }
+
+  .verso{
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+  .verso:last-child{ border-bottom:none; }
+  .verso.repetindo{ background: #fffceb; border-radius: 10px; }
+
+  .verso-texto{ flex:1; min-width:0; }
+  .verso-original{
+    font-size: 14.5px;
+    font-weight: 600;
+    color:#1a1a1a;
+    margin:0 0 3px;
+  }
+  .verso-original .nota-icone{ margin-right:5px; opacity:.6; }
+  .verso-ipa{
+    font-size: 13.5px;
+    color: #444;
+    font-family: 'Cambria', 'Georgia', serif;
+    margin:0;
+  }
+  .fonema-dificil{
+    color: var(--destaque);
+    font-weight:700;
+  }
+
+  .btn-ouvir{
+    flex-shrink:0;
+    background: var(--amarelo);
+    border-radius: 10px;
+    width: 46px;
+    height: 40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 16px;
+    padding:0;
+  }
+  .btn-ouvir.tocando{ background: var(--amarelo-escuro); }
+
+  .placeholder-vazio{
+    text-align:center;
+    color:#999;
+    font-size:13px;
+    padding: 24px 10px;
+  }
+
+  .painel-velocidade{
+    display:none;
+    margin-top: 10px;
+    background: var(--cinza-claro);
+    border-radius: 10px;
+    padding: 10px;
+    gap:8px;
+    justify-content: space-between;
+  }
+  .painel-velocidade.aberto{ display:flex; }
+  .painel-velocidade button{ flex:1; background:#fff; }
+  .painel-velocidade button.ativo{ background: var(--rosa); border-color: var(--rosa-escuro); }
+
+  footer{
+    padding: 14px 16px 22px;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    border-top: 1px solid #eee;
+    margin-top: 6px;
+  }
+  .footer-linha{ display:flex; gap:10px; }
+  .footer-linha button{ flex:1; }
+  .btn-lilas.ativo{ background: var(--lilas-escuro); }
+
+  .status-msg{
+    text-align:center;
+    font-size: 12px;
+    color:#777;
+    min-height: 16px;
+  }
+
+  .lista-salvos{
+    display:none;
+    margin-top:8px;
+    background: var(--cinza-claro);
+    border-radius:10px;
+    padding: 10px;
+    font-size:12.5px;
+  }
+  .lista-salvos.aberta{ display:block; }
+  .lista-salvos ul{ margin:6px 0 0; padding-left:18px; }
+  .lista-salvos li{ margin-bottom:4px; display:flex; justify-content:space-between; gap:6px; align-items:center;}
+  .lista-salvos li button{ padding:4px 8px; font-size:11px; background:#fff; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <header>
+    <h1>O CORALISTA</h1>
+    <h2>PRONÚNCIA MUSICAL</h2>
+  </header>
+
+  <main>
+    <!-- 1. ENTRADA DE DADOS -->
+    <textarea id="campoLetra" class="campo-texto" placeholder="Colar letra da música aqui..."></textarea>
+
+    <div class="linha-botoes">
+      <div class="menu-idioma btn-flex">
+        <button id="btnIdioma" class="btn-azul btn-flex" style="width:100%" aria-haspopup="listbox" aria-expanded="false">🌐 Selecionar Idioma</button>
+        <div id="dropdownIdioma" class="dropdown" role="listbox">
+          <button data-idioma="de" role="option">Alemão</button>
+          <button data-idioma="es" role="option">Espanhol</button>
+          <button data-idioma="fr" role="option">Francês</button>
+          <button data-idioma="en" role="option">Inglês</button>
+          <button data-idioma="it" role="option">Italiano</button>
+          <button data-idioma="pt" role="option">Português (Brasil)</button>
+          <button data-idioma="la" role="option">Latim</button>
+        </div>
+      </div>
+      <button id="btnGerar" class="btn-verde btn-flex">𝔞ℯ Gerar Transcrição IPA</button>
+    </div>
+
+    <p class="idioma-atual">Idioma selecionado: <b id="idiomaAtualTexto">nenhum</b></p>
+
+    <label class="toggle-extra">
+      <input type="checkbox" id="chkFonemas">
+      Destacar fonemas difíceis (para falantes de português)
+    </label>
+
+    <p class="aviso">A transcrição usa IPA real quando encontra a palavra em um dicionário fonético. Quando não encontra, usa regras de aproximação. No Latim eclesiástico, palavras conhecidas têm pronúncias específicas, por exemplo: "Gloria in excelsis Deo" → [ˈɡlɔː.ri.a in ekˈtʃel.sis ˈde.o].</p>
+
+    <div id="versos" class="versos">
+      <p class="placeholder-vazio">Cole a letra, selecione o idioma e toque em "Gerar Transcrição IPA" para começar.</p>
+    </div>
+
+    <div id="painelVelocidade" class="painel-velocidade">
+      <button data-vel="0.65">🐢 Lento</button>
+      <button data-vel="1" class="ativo">▶ Normal</button>
+      <button data-vel="1.35">⚡ Rápido</button>
+    </div>
+
+    <div id="listaSalvos" class="lista-salvos">
+      <b>Projetos salvos</b>
+      <ul id="ulSalvos"></ul>
+    </div>
+  </main>
+
+  <div class="status-msg" id="statusMsg"></div>
+
+  <footer>
+    <div class="footer-linha">
+      <button id="btnOuvirTudo" class="btn-amarelo">▶ Ouvir música inteira</button>
+      <button id="btnVelocidade" class="btn-rosa">⚙ Ajustar velocidade</button>
+    </div>
+    <div class="footer-linha">
+      <button id="btnSalvar" class="btn-lilas">💾 Salvar Projeto</button>
+      <button id="btnRepeticao" class="btn-lilas">⟲ Modo Repetição</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   O CORALISTA — lógica do aplicativo
+   Segue fielmente os comandos descritos no documento-base:
+   entrada de dados, transcrição IPA, exibição por versos,
+   funções de áudio e recursos extras.
+   ========================================================= */
+
+// ---------- Estado geral ----------
+let idiomaSelecionado = null;
+let versosAtuais = [];        // [{texto, ipa}]
+let velocidadeAtual = 1;
+let modoRepeticao = false;
+let indiceRepetindo = null;
+let projetosSalvos = [];      // armazenamento em memória (sessão)
+let vozesDisponiveis = [];
+let cacheTraducoes = new Map();
+
+const idiomaParaVoz = {
+  de: "de-DE",
+  es: "es-ES",
+  fr: "fr-FR",
+  en: "en-US",
+  it: "it-IT",
+  pt: "pt-BR",
+  la: "it-IT" // não há voz nativa em Latim; usa-se a pronúncia italiana como aproximação da dicção eclesiástica
+};
+
+const nomesIdiomas = {
+  de: "Alemão", es: "Espanhol", fr: "Francês",
+  en: "Inglês", it: "Italiano", pt: "Português (Brasil)", la: "Latim"
+};
+
+// ---------- Carregamento de vozes ----------
+function carregarVozes(){
+  vozesDisponiveis = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+}
+if ("speechSynthesis" in window){
+  carregarVozes();
+  window.speechSynthesis.onvoiceschanged = carregarVozes;
+}
+
+function statusMsg(msg){
+  document.getElementById("statusMsg").textContent = msg;
+}
+
+/* =========================================================
+   REGRAS DE TRANSCRIÇÃO FONÉTICA (IPA) POR IDIOMA
+   Cada idioma tem uma tabela de padrões (mais longos primeiro)
+   convertidos em símbolos IPA aproximados.
+   ========================================================= */
+
+const VOGAIS = "aeiouyáéíóúàèìòùâêîôûäöüãõ";
+
+function ordenarPorTamanho(tabela){
+  return tabela.slice().sort((a,b)=> b[0].length - a[0].length);
+}
+
+const regrasIPA = {
+  la: ordenarPorTamanho([ // LATIM — pronúncia eclesiástica
+    ["excelsis", "ekˈtʃel.sis"],
+    ["gloria", "ˈɡlɔː.ri.a"],
+    ["deus", "ˈde.us"],
+    ["deo", "ˈde.o"],
+    ["sc(?=[eiy])", "ʃ"], ["sc", "sk"],
+    ["ti(?=[aeiou])", "tsi"],
+    ["gn", "ɲ"], ["ch", "k"], ["ph", "f"], ["th", "t"], ["gh", "g"],
+    ["qu", "kw"], ["gu(?=[aeiou])", "gw"],
+    ["ae", "e"], ["oe", "e"],
+    ["c(?=[eiy])", "tʃ"], ["c", "k"],
+    ["g(?=[eiy])", "dʒ"], ["g", "ɡ"],
+    ["x", "ks"], ["z", "dz"],
+    ["j", "j"], ["h", ""],
+    ["a", "a"], ["e", "ɛ"], ["i", "i"], ["o", "ɔ"], ["u", "u"], ["y", "i"],
+    ["r", "r"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "b"], ["d", "d"],
+    ["f", "f"], ["p", "p"], ["s", "s"], ["t", "t"], ["v", "v"]
+  ]),
+  pt: ordenarPorTamanho([ // PORTUGUÊS BRASILEIRO — fallback aproximado
+    ["nh", "ɲ"], ["lh", "ʎ"], ["ch", "ʃ"], ["rr", "ʁ"], ["ss", "s"],
+    ["qu", "k"], ["gu(?=[ei])", "g"], ["ç", "s"],
+    ["ão", "ɐ̃w̃"], ["ãe", "ɐ̃j̃"], ["õe", "õj̃"],
+    ["em$", "ẽj̃"], ["en$", "ẽj̃"],
+    ["am$", "ɐ̃w̃"], ["an$", "ɐ̃w̃"],
+    ["es$", "is"], ["os$", "us"],
+    ["x", "ʃ"], ["j", "ʒ"],
+    ["c(?=[eéií])", "s"], ["c", "k"],
+    ["g(?=[eéií])", "ʒ"], ["g", "ɡ"],
+    ["r", "ɾ"], ["h", ""],
+    ["a", "a"], ["e", "ɛ"], ["i", "i"], ["o", "ɔ"], ["u", "u"],
+    ["b", "b"], ["d", "d"], ["f", "f"], ["k", "k"], ["l", "l"],
+    ["m", "m"], ["n", "n"], ["p", "p"], ["s", "s"], ["t", "t"],
+    ["v", "v"], ["z", "z"]
+  ]),
+  it: ordenarPorTamanho([ // ITALIANO
+    ["sc(?=[ei])", "ʃ"], ["sc", "sk"],
+    ["gli", "ʎi"], ["gn", "ɲ"],
+    ["ch", "k"], ["gh", "g"], ["qu", "kw"],
+    ["c(?=[ei])", "tʃ"], ["c", "k"],
+    ["g(?=[ei])", "dʒ"], ["g", "ɡ"],
+    ["z", "ts"], ["h", ""],
+    ["a", "a"], ["e", "ɛ"], ["i", "i"], ["o", "ɔ"], ["u", "u"],
+    ["r", "r"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "b"], ["d", "d"],
+    ["f", "f"], ["p", "p"], ["s", "s"], ["t", "t"], ["v", "v"], ["j", "j"]
+  ]),
+  fr: ordenarPorTamanho([ // FRANCÊS
+    ["ain", "ɛ̃"], ["ein", "ɛ̃"],
+    ["an", "ɑ̃"], ["am", "ɑ̃"], ["en", "ɑ̃"], ["em", "ɑ̃"],
+    ["in", "ɛ̃"], ["im", "ɛ̃"], ["on", "ɔ̃"], ["om", "ɔ̃"],
+    ["un", "œ̃"], ["um", "œ̃"],
+    ["ou", "u"], ["eu", "ø"], ["œu", "ø"], ["oi", "wa"],
+    ["ill", "ij"], ["gn", "ɲ"], ["ch", "ʃ"], ["qu", "k"],
+    ["é", "e"], ["è", "ɛ"], ["ê", "ɛ"],
+    ["g(?=[eiy])", "ʒ"], ["g", "ɡ"],
+    ["j", "ʒ"], ["h", ""],
+    ["a", "a"], ["e", "ə"], ["i", "i"], ["o", "o"], ["u", "y"],
+    ["r", "ʁ"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "b"], ["d", "d"],
+    ["f", "f"], ["p", "p"], ["s", "s"], ["t", "t"], ["v", "v"], ["c", "k"]
+  ]),
+  de: ordenarPorTamanho([ // ALEMÃO
+    ["sch", "ʃ"], ["tsch", "tʃ"],
+    ["ei", "aɪ"], ["ai", "aɪ"], ["ie", "iː"], ["eu", "ɔʏ"], ["äu", "ɔʏ"],
+    ["sp", "ʃp"], ["st", "ʃt"],
+    ["ch", "ç"], ["ck", "k"], ["ng", "ŋ"],
+    ["ä", "ɛ"], ["ö", "ø"], ["ü", "y"], ["ß", "s"],
+    ["v", "f"], ["w", "v"], ["z", "ts"], ["j", "j"],
+    ["a", "a"], ["e", "ɛ"], ["i", "ɪ"], ["o", "ɔ"], ["u", "ʊ"],
+    ["r", "ʁ"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "b"], ["d", "d"],
+    ["f", "f"], ["p", "p"], ["s", "z"], ["t", "t"], ["c", "k"], ["h", "h"]
+  ]),
+  es: ordenarPorTamanho([ // ESPANHOL
+    ["ll", "ʎ"], ["rr", "r"], ["ñ", "ɲ"],
+    ["ch", "tʃ"], ["qu", "k"], ["gu(?=[ei])", "g"],
+    ["j", "x"], ["ge", "xe"], ["gi", "xi"],
+    ["c(?=[ei])", "s"], ["z", "s"], ["h", ""],
+    ["a", "a"], ["e", "e"], ["i", "i"], ["o", "o"], ["u", "u"],
+    ["r", "ɾ"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "β"], ["v", "β"],
+    ["d", "d"], ["f", "f"], ["p", "p"], ["s", "s"], ["t", "t"], ["g", "ɣ"], ["c", "k"], ["y", "ʝ"]
+  ]),
+  en: ordenarPorTamanho([ // INGLÊS
+    ["tion", "ʃən"], ["sion", "ʒən"],
+    ["th", "θ"], ["sh", "ʃ"], ["ch", "tʃ"], ["ph", "f"], ["wh", "w"], ["ng", "ŋ"],
+    ["ee", "iː"], ["ea", "iː"], ["oo", "uː"], ["oa", "oʊ"],
+    ["ai", "eɪ"], ["ay", "eɪ"], ["oi", "ɔɪ"], ["oy", "ɔɪ"],
+    ["ow", "aʊ"], ["ou", "aʊ"],
+    ["a", "æ"], ["e", "ɛ"], ["i", "ɪ"], ["o", "ɒ"], ["u", "ʌ"], ["y", "i"],
+    ["r", "r"], ["l", "l"], ["m", "m"], ["n", "n"], ["b", "b"], ["d", "d"],
+    ["f", "f"], ["p", "p"], ["s", "s"], ["t", "t"], ["v", "v"], ["c", "k"], ["g", "ɡ"], ["j", "dʒ"], ["w", "w"], ["h", "h"]
+  ])
+};
+
+// Símbolos considerados "fonemas difíceis" para falantes de português (destaque opcional)
+const fonemasDificeis = ["θ","ð","ç","ʒ","ʃ","ʎ","ɲ","ø","y","œ̃","ɑ̃","ɔ̃","ɛ̃","ŋ","ɾ","β","ɣ","ʁ","ɪ","ʊ","ɒ","ʌ","ɛ"];
+
+// ---------- Silabificação genérica (baseada nas letras originais) ----------
+function silabificar(palavra){
+  const letras = palavra.split("");
+  const ehVogal = c => VOGAIS.includes(c.toLowerCase());
+  let silabas = [];
+  let atual = "";
+  let i = 0;
+  while (i < letras.length){
+    atual += letras[i];
+    let seguinteVogalIdx = -1;
+    // se a letra atual é vogal, avança até o fim do grupo vocálico
+    if (ehVogal(letras[i])){
+      let j = i+1;
+      while (j < letras.length && ehVogal(letras[j])){ atual += letras[j]; j++; }
+      i = j;
+      // agora consumir consoantes até a próxima vogal (dividindo o cluster)
+      let cluster = "";
+      let k = i;
+      while (k < letras.length && !ehVogal(letras[k])){ cluster += letras[k]; k++; }
+      if (k >= letras.length){
+        // fim da palavra: cluster fica na sílaba atual
+        atual += cluster;
+        i = k;
+      } else if (cluster.length <= 1){
+        // consoante única -> onset da próxima sílaba
+        silabas.push(atual);
+        atual = "";
+        i = i; // cluster não consumido ainda, será pego na próxima iteração
+      } else {
+        // cluster com 2+ consoantes: 1ª fica de coda, resto vai para o onset seguinte
+        atual += cluster[0];
+        silabas.push(atual);
+        atual = "";
+        i = i + 1; // avança apenas 1 consoante (a que ficou de coda)
+      }
+    } else {
+      i++;
+    }
+  }
+  if (atual) silabas.push(atual);
+  if (silabas.length === 0) silabas.push(palavra);
+  return silabas;
+}
+
+// ---------- Conversão de uma sílaba (texto original) para IPA ----------
+function silabaParaIPA(silaba, idioma){
+  const tabela = regrasIPA[idioma];
+  const s = silaba.toLowerCase();
+  let resultado = "";
+  let i = 0;
+  while (i < s.length){
+    let casou = false;
+    for (const [padrao, ipa] of tabela){
+      let regex;
+      try { regex = new RegExp("^(?:" + padrao + ")", "i"); } catch(e){ continue; }
+      const trecho = s.slice(i);
+      const m = trecho.match(regex);
+      if (m && m[0].length > 0){
+        resultado += ipa;
+        i += m[0].length;
+        casou = true;
+        break;
+      }
+    }
+    if (!casou){
+      resultado += s[i];
+      i++;
+    }
+  }
+  return resultado;
+}
+
+// ---------- Determina a sílaba tônica (heurística por idioma) ----------
+function indiceSilabaTonica(silabas, palavraOriginal, idioma){
+  const n = silabas.length;
+  if (n <= 1) return 0;
+  if (idioma === "fr") return n - 1; // francês: tônica na última sílaba
+  if (idioma === "de" || idioma === "en") return 0; // germânicas: heurística na primeira sílaba
+  if (idioma === "it" || idioma === "la") return n - 2; // penúltima (heurística)
+  if (idioma === "pt") return n - 2; // fallback; a posição real depende da palavra
+  if (idioma === "es"){
+    const ultima = palavraOriginal.slice(-1).toLowerCase();
+    const terminaVogalNS = "aeiouns".includes(ultima);
+    return terminaVogalNS ? n - 2 : n - 1;
+  }
+  return n - 2;
+}
+
+// ---------- Dicionário fonético ----------
+/*
+  A versão anterior tentava descobrir a pronúncia apenas olhando as letras.
+  Isso é justamente o que causava resultados como "Casa" -> [ˈkæ.sæ]
+  quando o idioma não correspondia ao idioma real da palavra.
+
+  Agora o app tenta primeiro obter a pronúncia IPA de um dicionário.
+  Se o dicionário não tiver a palavra, cai para as regras locais como
+  aproximação, sem fingir que essa aproximação é uma pronúncia exata.
+*/
+const codigoDicionario = {
+  pt: "pt-BR",
+  en: "en",
+  es: "es",
+  fr: "fr",
+  de: "de",
+  it: "it"
+};
+
+const cacheIPA = new Map();
+
+async function buscarIPAOnline(palavra, idioma){
+  const chave = idioma + "|" + palavra.toLowerCase();
+  if (cacheIPA.has(chave)) return cacheIPA.get(chave);
+
+  // Latim não usa o dicionário genérico: mantém as regras próprias.
+  const codigo = codigoDicionario[idioma];
+  if (!codigo) {
+    cacheIPA.set(chave, null);
+    return null;
+  }
+
+  const palavraLimpa = palavra
+    .normalize("NFC")
+    .toLowerCase()
+    .replace(/[^a-zà-ÿ]/g, "");
+
+  if (!palavraLimpa) return null;
+
+  try {
+    const url = "https://api.dictionaryapi.dev/api/v2/entries/" +
+      encodeURIComponent(codigo) + "/" + encodeURIComponent(palavraLimpa);
+
+    const resposta = await fetch(url, { method: "GET" });
+    if (!resposta.ok) throw new Error("palavra não encontrada");
+
+    const dados = await resposta.json();
+
+    // Procura primeiro uma entrada que realmente tenha IPA.
+    for (const entrada of Array.isArray(dados) ? dados : []) {
+      if (entrada.phonetic) {
+        cacheIPA.set(chave, entrada.phonetic);
+        return entrada.phonetic;
+      }
+
+      const lista = Array.isArray(entrada.phonetics) ? entrada.phonetics : [];
+      const comIPA = lista.find(p => p && p.text && /[\u0250-\u02FF]/.test(p.text));
+      if (comIPA) {
+        cacheIPA.set(chave, comIPA.text);
+        return comIPA.text;
+      }
+    }
+  } catch (erro) {
+    // Sem internet, CORS ou palavra ausente: usa o fallback local.
+  }
+
+  cacheIPA.set(chave, null);
+  return null;
+}
+
+function palavraParaIPAFallback(palavra, idioma){
+  const limpa = palavra.replace(/[^a-zà-ÿA-ZÀ-Ÿ]/g, "");
+  if (!limpa) return "";
+
+  const excecoesIPA = {
+    la: {
+      "gloria": "ˈɡlɔː.ri.a",
+      "in": "in",
+      "excelsis": "ekˈtʃel.sis",
+      "deo": "ˈde.o",
+      "et": "et",
+      "terra": "ˈtɛr.ra",
+      "pax": "paks",
+      "hominibus": "ɔˈmi.ni.bus",
+      "laudamus": "lauˈdaː.mus",
+      "te": "te",
+      "benedicimus": "bɛ.neˈdi.tʃi.mus"
+    }
+  };
+
+  const chave = limpa.toLowerCase();
+  if (excecoesIPA[idioma] && excecoesIPA[idioma][chave]) {
+    return excecoesIPA[idioma][chave];
+  }
+
+  const silabas = silabificar(limpa);
+  const idxTonica = indiceSilabaTonica(silabas, limpa, idioma);
+  const partesIPA = silabas.map((sil, idx) => {
+    const ipa = silabaParaIPA(sil, idioma);
+    return (idx === idxTonica ? "ˈ" : "") + ipa;
+  });
+
+  return partesIPA.join(".");
+}
+
+// Transcrição assíncrona: dicionário primeiro, fallback depois.
+async function palavraParaIPA(palavra, idioma){
+  const limpa = palavra.replace(/[^a-zà-ÿA-ZÀ-Ÿ]/g, "");
+  if (!limpa) return "";
+
+  const ipaOnline = await buscarIPAOnline(limpa, idioma);
+  if (ipaOnline) return ipaOnline;
+
+  return palavraParaIPAFallback(limpa, idioma);
+}
+// ---------- Transcreve um verso completo ----------
+async function versoParaIPA(verso, idioma){
+  const palavras = verso.split(/\s+/).filter(Boolean);
+  const ipas = await Promise.all(
+    palavras.map(p => palavraParaIPA(p, idioma))
+  );
+  return "[" + ipas.join(" ") + "]";
+}
+
+// Aplica destaque visual (HTML) nos fonemas difíceis dentro de uma string IPA
+function destacarFonemas(ipaTexto){
+  let html = ipaTexto;
+  // ordenar por tamanho para não quebrar símbolos compostos como œ̃, ɑ̃ etc.
+  const ordenados = fonemasDificeis.slice().sort((a,b)=>b.length-a.length);
+  for (const f of ordenados){
+    const escapado = f.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    html = html.split(f).join(`<span class="fonema-dificil">${f}</span>`);
+  }
+  return html;
+}
+
+/* =========================================================
+   INTERFACE — comandos ligados aos elementos do wireframe
+   ========================================================= */
+
+// --- Comando: "Selecionar idioma" ---
+const btnIdioma = document.getElementById("btnIdioma");
+const dropdownIdioma = document.getElementById("dropdownIdioma");
+
+btnIdioma.addEventListener("click", () => {
+  const aberto = dropdownIdioma.classList.toggle("aberto");
+  btnIdioma.setAttribute("aria-expanded", aberto);
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".menu-idioma")){
+    dropdownIdioma.classList.remove("aberto");
+    btnIdioma.setAttribute("aria-expanded", "false");
+  }
+});
+
+dropdownIdioma.querySelectorAll("button[data-idioma]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    idiomaSelecionado = btn.dataset.idioma;
+    dropdownIdioma.querySelectorAll("button").forEach(b => b.classList.remove("selecionado"));
+    btn.classList.add("selecionado");
+    document.getElementById("idiomaAtualTexto").textContent = nomesIdiomas[idiomaSelecionado];
+    dropdownIdioma.classList.remove("aberto");
+    statusMsg("Idioma definido: " + nomesIdiomas[idiomaSelecionado]);
+  });
+});
+
+// --- Comando: "Gerar transcrição fonética (IPA)" + "Dividir letra por versos" ---
+document.getElementById("btnGerar").addEventListener("click", async () => {
+  const texto = document.getElementById("campoLetra").value.trim();
+  if (!texto){
+    statusMsg("Cole a letra da música antes de gerar a transcrição.");
+    return;
+  }
+  if (!idiomaSelecionado){
+    statusMsg("Selecione um idioma antes de gerar a transcrição.");
+    return;
+  }
+
+  const linhas = texto.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+
+  statusMsg("Consultando pronúncias e gerando IPA...");
+
+  versosAtuais = await Promise.all(
+    linhas.map(async linha => ({
+      texto: linha,
+      ipa: await versoParaIPA(linha, idiomaSelecionado)
+    }))
+  );
+
+  renderizarVersos();
+  statusMsg(`${versosAtuais.length} verso(s) transcritos em ${nomesIdiomas[idiomaSelecionado]}.`);
+});
+
+const chkFonemas = document.getElementById("chkFonemas");
+chkFonemas.addEventListener("change", renderizarVersos);
+
+// --- Renderização dos versos (Linha1: texto, Linha2: IPA, Linha3: botão Ouvir) ---
+function renderizarVersos(){
+  const container = document.getElementById("versos");
+  container.innerHTML = "";
+  if (versosAtuais.length === 0){
+    container.innerHTML = `<p class="placeholder-vazio">Cole a letra, selecione o idioma e toque em "Gerar Transcrição IPA" para começar.</p>`;
+    return;
+  }
+  versosAtuais.forEach((v, idx) => {
+    const div = document.createElement("div");
+    div.className = "verso";
+    div.id = "verso-" + idx;
+
+    const ipaHtml = chkFonemas.checked ? destacarFonemas(v.ipa) : v.ipa;
+
+    div.innerHTML = `
+      <div class="verso-texto">
+        <p class="verso-original"><span class="nota-icone">♪</span>${escapeHtml(v.texto)}</p>
+        <p class="verso-ipa">${ipaHtml}</p>
+      </div>
+      <button class="btn-ouvir" data-idx="${idx}" title="Ouvir pronúncia" aria-label="Ouvir verso">🔊</button>
+    `;
+    container.appendChild(div);
+  });
+
+  container.querySelectorAll(".btn-ouvir").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.dataset.idx, 10);
+      ouvirVerso(idx, btn);
+    });
+  });
+}
+
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ---------- FUNÇÕES DE ÁUDIO ---------- */
+
+function escolherVoz(idioma){
+  const codigo = idiomaParaVoz[idioma];
+  if (!vozesDisponiveis.length) carregarVozes();
+
+  let voz = vozesDisponiveis.find(v => v.lang === codigo);
+  if (!voz) {
+    const prefixo = codigo.split("-")[0].toLowerCase();
+    voz = vozesDisponiveis.find(v =>
+      v.lang && v.lang.toLowerCase().startsWith(prefixo + "-")
+    );
+  }
+  return voz;
+}
+
+// A síntese de voz apenas pronuncia o texto; ela não traduz.
+// Por isso, ao selecionar inglês e escrever "nome", precisamos primeiro
+// traduzir para "name" e só então mandar "name" para a voz inglesa.
+async function traduzirParaIdioma(texto, idioma){
+  if (!texto || !idioma) return texto;
+
+  const chave = idioma + "|" + texto.trim().toLowerCase();
+  if (cacheTraducoes.has(chave)) return cacheTraducoes.get(chave);
+
+  const destino = idiomaParaVoz[idioma].split("-")[0];
+  const url =
+    "https://api.mymemory.translated.net/get?q=" +
+    encodeURIComponent(texto) +
+    "&langpair=pt-BR|" +
+    encodeURIComponent(destino);
+
+  try {
+    const resposta = await fetch(url);
+    if (!resposta.ok) throw new Error("Falha na tradução");
+
+    const dados = await resposta.json();
+    const traduzido = dados?.responseData?.translatedText;
+
+    if (traduzido && traduzido.trim()) {
+      cacheTraducoes.set(chave, traduzido.trim());
+      return traduzido.trim();
+    }
+  } catch (erro) {
+    console.warn("Não foi possível traduzir:", erro);
+  }
+
+  return texto;
+}
+
+// --- Comando: "Ouvir verso individual" ---
+async function ouvirVerso(idx, botaoEl){
+  if (!("speechSynthesis" in window)){
+    statusMsg("Este navegador não suporta síntese de voz.");
+    return;
+  }
+  if (!idiomaSelecionado){
+    statusMsg("Selecione um idioma primeiro.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  document.querySelectorAll(".btn-ouvir").forEach(b => b.classList.remove("tocando"));
+  if (botaoEl) botaoEl.classList.add("tocando");
+  document.querySelectorAll(".verso").forEach(v => v.classList.remove("repetindo"));
+  const versoEl = document.getElementById("verso-" + idx);
+  if (versoEl) versoEl.classList.add("repetindo");
+
+  statusMsg("Traduzindo para " + nomesIdiomas[idiomaSelecionado] + "...");
+
+  const textoOriginal = versosAtuais[idx].texto;
+  const textoFalado = await traduzirParaIdioma(textoOriginal, idiomaSelecionado);
+
+  const utter = new SpeechSynthesisUtterance(textoFalado);
+  utter.lang = idiomaParaVoz[idiomaSelecionado];
+
+  const voz = escolherVoz(idiomaSelecionado);
+  if (voz) {
+    utter.voice = voz;
+    utter.lang = voz.lang;
+  }
+
+  utter.rate = velocidadeAtual;
+
+  utter.onend = () => {
+    if (botaoEl) botaoEl.classList.remove("tocando");
+    if (versoEl) versoEl.classList.remove("repetindo");
+
+    if (modoRepeticao && indiceRepetindo === idx){
+      ouvirVerso(idx, botaoEl);
+    }
+  };
+
+  utter.onerror = (evento) => {
+    if (botaoEl) botaoEl.classList.remove("tocando");
+    if (versoEl) versoEl.classList.remove("repetindo");
+    statusMsg("Não foi possível reproduzir a voz: " + (evento.error || "erro desconhecido"));
+  };
+
+  window.speechSynthesis.speak(utter);
+  statusMsg("Falando em " + nomesIdiomas[idiomaSelecionado] + ": " + textoFalado);
+}
+
+// --- Comando: "Ouvir música inteira" ---
+document.getElementById("btnOuvirTudo").addEventListener("click", () => {
+  if (!("speechSynthesis" in window)){
+    statusMsg("Este navegador não suporta síntese de voz.");
+    return;
+  }
+  if (versosAtuais.length === 0){
+    statusMsg("Gere a transcrição antes de ouvir a música.");
+    return;
+  }
+  window.speechSynthesis.cancel();
+  let i = 0;
+
+  async function proximo(){
+    if (i >= versosAtuais.length){
+      statusMsg("Fim da música.");
+      return;
+    }
+
+    statusMsg("Traduzindo verso " + (i + 1) + "...");
+
+    const textoFalado = await traduzirParaIdioma(
+      versosAtuais[i].texto,
+      idiomaSelecionado
+    );
+
+    const utter = new SpeechSynthesisUtterance(textoFalado);
+    utter.lang = idiomaParaVoz[idiomaSelecionado];
+
+    const voz = escolherVoz(idiomaSelecionado);
+    if (voz) {
+      utter.voice = voz;
+      utter.lang = voz.lang;
+    }
+
+    utter.rate = velocidadeAtual;
+
+    utter.onend = () => {
+      i++;
+      setTimeout(proximo, 350);
+    };
+
+    utter.onerror = () => {
+      i++;
+      setTimeout(proximo, 350);
+    };
+
+    window.speechSynthesis.speak(utter);
+  }
+
+  statusMsg("Reproduzindo música inteira...");
+  proximo();
+});
+
+// --- Comando: "Ajustar velocidade da fala" ---
+const painelVelocidade = document.getElementById("painelVelocidade");
+document.getElementById("btnVelocidade").addEventListener("click", () => {
+  painelVelocidade.classList.toggle("aberto");
+});
+painelVelocidade.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    velocidadeAtual = parseFloat(btn.dataset.vel);
+    painelVelocidade.querySelectorAll("button").forEach(b => b.classList.remove("ativo"));
+    btn.classList.add("ativo");
+    statusMsg("Velocidade ajustada para: " + btn.textContent.trim());
+  });
+});
+
+/* ---------- RECURSOS EXTRAS ---------- */
+
+// --- Comando: "Modo repetição" ---
+const btnRepeticao = document.getElementById("btnRepeticao");
+btnRepeticao.addEventListener("click", () => {
+  modoRepeticao = !modoRepeticao;
+  btnRepeticao.classList.toggle("ativo", modoRepeticao);
+  if (modoRepeticao){
+    statusMsg("Modo repetição ativado — toque em 'Ouvir' no verso desejado.");
+    document.querySelectorAll(".btn-ouvir").forEach(b => {
+      b.onclick = () => {
+        const idx = parseInt(b.dataset.idx, 10);
+        indiceRepetindo = idx;
+        ouvirVerso(idx, b);
+      };
+    });
+  } else {
+    indiceRepetindo = null;
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    statusMsg("Modo repetição desativado.");
+    document.querySelectorAll(".verso").forEach(v => v.classList.remove("repetindo"));
+    renderizarVersos();
+  }
+});
+
+// --- Comando: "Salvar projeto" (armazenamento em memória durante a sessão) ---
+const btnSalvar = document.getElementById("btnSalvar");
+const listaSalvos = document.getElementById("listaSalvos");
+const ulSalvos = document.getElementById("ulSalvos");
+
+btnSalvar.addEventListener("click", () => {
+  const texto = document.getElementById("campoLetra").value.trim();
+  if (!texto){
+    statusMsg("Nada para salvar ainda.");
+    return;
+  }
+  const nome = "Projeto " + (projetosSalvos.length + 1) + " (" + (nomesIdiomas[idiomaSelecionado] || "sem idioma") + ")";
+  projetosSalvos.push({
+    nome,
+    texto,
+    idioma: idiomaSelecionado,
+    versos: versosAtuais
+  });
+  renderizarSalvos();
+  listaSalvos.classList.add("aberta");
+  statusMsg("Projeto salvo para esta sessão: " + nome);
+});
+
+function renderizarSalvos(){
+  ulSalvos.innerHTML = "";
+  projetosSalvos.forEach((p, idx) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${escapeHtml(p.nome)}</span>`;
+    const btnCarregar = document.createElement("button");
+    btnCarregar.textContent = "Abrir";
+    btnCarregar.addEventListener("click", () => {
+      document.getElementById("campoLetra").value = p.texto;
+      idiomaSelecionado = p.idioma;
+      document.getElementById("idiomaAtualTexto").textContent = nomesIdiomas[idiomaSelecionado] || "nenhum";
+      dropdownIdioma.querySelectorAll("button").forEach(b => b.classList.toggle("selecionado", b.dataset.idioma === idiomaSelecionado));
+      versosAtuais = p.versos;
+      renderizarVersos();
+      statusMsg("Projeto carregado: " + p.nome);
+    });
+    li.appendChild(btnCarregar);
+    ulSalvos.appendChild(li);
+  });
+}
+
+// Nota: o armazenamento acima existe apenas durante esta sessão do navegador
+// (a pré-visualização de artefatos não oferece armazenamento persistente do navegador).
+
+// ---- PWA: registra o service worker para funcionamento offline ----
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
