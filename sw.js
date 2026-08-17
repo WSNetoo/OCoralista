@@ -1,8 +1,9 @@
 // Service Worker de "O Coralista"
-// Faz cache dos arquivos do app para que ele funcione 100% offline
-// depois da primeira visita/instalação.
+// Faz cache dos arquivos do app para funcionamento offline.
+// Quando uma nova versão é publicada, o cache antigo é removido.
 
-const CACHE_NAME = "o-coralista-v1";
+const CACHE_NAME = "o-coralista-v2";
+
 const ARQUIVOS_PARA_CACHE = [
   "./",
   "./index.html",
@@ -13,57 +14,97 @@ const ARQUIVOS_PARA_CACHE = [
   "./icon-512-maskable.png"
 ];
 
-// Instala e guarda todos os arquivos essenciais no cache
+// =========================================================
+// INSTALAÇÃO
+// =========================================================
+
 self.addEventListener("install", (evento) => {
   evento.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ARQUIVOS_PARA_CACHE))
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ARQUIVOS_PARA_CACHE);
+    })
   );
+
+  // Ativa a nova versão imediatamente
   self.skipWaiting();
 });
 
-// Ativa e limpa caches antigos de versões anteriores
+
+// =========================================================
+// ATIVAÇÃO
+// Remove caches antigos
+// =========================================================
+
 self.addEventListener("activate", (evento) => {
   evento.waitUntil(
-    caches.keys().then((nomes) =>
-      Promise.all(
+    caches.keys().then((nomes) => {
+      return Promise.all(
         nomes
           .filter((nome) => nome !== CACHE_NAME)
           .map((nome) => caches.delete(nome))
-      )
-    )
+      );
+    })
   );
+
+  // Faz a nova versão controlar as páginas abertas
   self.clients.claim();
 });
 
-// Estratégia: cache primeiro, com fallback para rede.
-// Para chamadas às APIs externas (dicionário/tradução), tenta rede primeiro
-// e não quebra o app se estiver offline (o app já trata esse erro sozinho).
+
+// =========================================================
+// FETCH
+// Internet primeiro + cache como fallback
+// =========================================================
+
 self.addEventListener("fetch", (evento) => {
   const url = new URL(evento.request.url);
+
+  // APIs externas não entram no cache
   const ehApiExterna =
     url.hostname.includes("dictionaryapi.dev") ||
     url.hostname.includes("mymemory.translated.net");
 
   if (ehApiExterna) {
-    // Rede primeiro; se falhar, deixa o app usar o fallback local dele.
     evento.respondWith(
-      fetch(evento.request).catch(() => new Response(null, { status: 503 }))
+      fetch(evento.request).catch(() => {
+        return new Response(null, {
+          status: 503
+        });
+      })
     );
+
     return;
   }
 
-  // Arquivos do próprio app: cache primeiro (funciona 100% offline)
+  // Para arquivos do aplicativo:
+  // 1. Tenta pegar a versão mais recente da internet
+  // 2. Atualiza o cache
+  // 3. Se estiver offline, usa o cache
   evento.respondWith(
-    caches.match(evento.request).then((respostaCache) => {
-      if (respostaCache) return respostaCache;
-      return fetch(evento.request)
-        .then((respostaRede) => {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(evento.request, respostaRede.clone());
-            return respostaRede;
+    fetch(evento.request)
+      .then((respostaRede) => {
+
+        // Só salva respostas válidas
+        if (respostaRede && respostaRede.status === 200) {
+          const copia = respostaRede.clone();
+
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(evento.request, copia);
           });
-        })
-        .catch(() => caches.match("./app.html"));
-    })
+        }
+
+        return respostaRede;
+      })
+      .catch(() => {
+        return caches.match(evento.request).then((respostaCache) => {
+
+          if (respostaCache) {
+            return respostaCache;
+          }
+
+          // Fallback para o app principal
+          return caches.match("./app.html");
+        });
+      })
   );
 });
