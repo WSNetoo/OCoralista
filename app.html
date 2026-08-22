@@ -895,8 +895,9 @@ async function ouvirVerso(idx, botaoEl){
 
   statusMsg("Traduzindo para " + nomesIdiomas[idiomaSelecionado] + "...");
 
-  const textoOriginal = versosAtuais[idx].texto;
-  const textoFalado = await traduzirParaIdioma(textoOriginal, idiomaSelecionado);
+  // Fala exatamente o texto que está escrito.
+  // Não traduz e não substitui palavras por sinônimos.
+  const textoFalado = versosAtuais[idx].texto;
 
   const utter = new SpeechSynthesisUtterance(textoFalado);
   utter.lang = idiomaParaVoz[idiomaSelecionado];
@@ -949,10 +950,9 @@ document.getElementById("btnOuvirTudo").addEventListener("click", () => {
 
     statusMsg("Traduzindo verso " + (i + 1) + "...");
 
-    const textoFalado = await traduzirParaIdioma(
-      versosAtuais[i].texto,
-      idiomaSelecionado
-    );
+    // Fala exatamente o texto que está escrito.
+    // Não traduz e não substitui palavras.
+    const textoFalado = versosAtuais[i].texto;
 
     const utter = new SpeechSynthesisUtterance(textoFalado);
     utter.lang = idiomaParaVoz[idiomaSelecionado];
